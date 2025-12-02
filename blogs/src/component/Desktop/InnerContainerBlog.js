@@ -158,7 +158,7 @@ const InnerContainerBlog = ({
           <TourGides />
         </div>
       </div>
-      {size?.width <= 800 && size?.width > 345 && (
+      {size?.width <= 800 && size?.width > 670 && (
         <AboutSliderComp
           slides={slides}
           indexAbout={indexAbout}

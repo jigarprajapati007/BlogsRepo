@@ -8,7 +8,7 @@ import {
 import { CommentsMemoized } from "./Comments";
 import { AddCommentsMemoized } from "./AddComments";
 import { ReletedMemoized } from "./Releted";
-import {blogpost} from "../../app/data/posts.js"
+import { blogpost } from "../../app/data/posts.js";
 export const DeskTop = () => {
   const [rate, setRate] = useState("good");
   const [size, setSize] = useState({
@@ -19,7 +19,7 @@ export const DeskTop = () => {
   const [indexAbout, setAboutIndex] = useState(0);
   const blogList = blogpost;
   const slides = [11, 21, 31]; // Three slides
-   console.log(blogList)
+  
   const goNext = () => {
     setIndex((prev) => (prev + 1) % blogList.length);
   };
@@ -38,9 +38,21 @@ export const DeskTop = () => {
 
   useLayoutEffect(() => {
     if (typeof window === "undefined") return;
-    setSize({
-      width: window.innerWidth,
-    });
+
+    function handleResize() {
+      setSize({
+        width: window.innerWidth,
+      });
+    }
+
+    // Run once on mount
+    handleResize();
+
+    // Listen for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup on unmount
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -89,7 +101,8 @@ export const DeskTop = () => {
         indexAbout={indexAbout}
         goNextAbout={goNextAbout}
         goPrevAbout={goPrevAbout}
-        goNext={goNext} goPrev={goPrev}
+        goNext={goNext}
+        goPrev={goPrev}
         blogList={blogList}
         index={index}
       />
